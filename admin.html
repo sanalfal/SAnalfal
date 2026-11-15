@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sanal Fal · Yönetim</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E🔐%3C/text%3E%3C/svg%3E">
+</head>
+<body>
+  <main class="app admin-wrap">
+
+    <!-- ŞİFRE KAPISI -->
+    <section class="screen active" id="screen-lock">
+      <div class="card center">
+        <div class="brand-emoji">🔐</div>
+        <h1 class="title sm">Yönetim Girişi</h1>
+        <p class="lead">Bu alan site yöneticisine özeldir.</p>
+        <div class="field">
+          <label for="pwInput">Yönetici şifresi</label>
+          <input id="pwInput" type="password" autocomplete="off" placeholder="Şifre...">
+          <p class="hint" id="pwHint" hidden>Hatalı şifre.</p>
+        </div>
+        <button class="btn-primary" id="btnLogin">Giriş Yap</button>
+        <a class="link-soft" href="index.html">← Siteye dön</a>
+      </div>
+    </section>
+
+    <!-- PANEL -->
+    <section class="screen" id="screen-panel">
+      <div class="card">
+        <div class="admin-top">
+          <div>
+            <h1 class="title sm">Yönetim Paneli</h1>
+            <p class="lead" style="margin-top:2px">Sanal Fal · kontrol merkezi</p>
+          </div>
+          <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center">
+            <a class="link-soft" href="index.html">Çıkış</a>
+          </div>
+        </div>
+
+        <div class="tabs">
+          <button class="tab active" data-tab="katilimcilar">Katılımcılar</button>
+          <button class="tab" data-tab="sonuc">Fal Sonucu</button>
+        </div>
+
+        <!-- Sekme: Katılımcılar -->
+        <div class="tab-pane active" id="tab-katilimcilar">
+          <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:12px">
+            <span class="chip" id="countChip">0 kişi</span>
+            <button class="btn-ghost" id="btnExport">CSV İndir</button>
+            <button class="btn-ghost" id="btnClear">Tümünü Sil</button>
+          </div>
+          <p class="micro" style="text-align:left;margin:0 0 10px">
+            Veriler Firebase Firestore'da toplanır; tüm cihazlardan gelen katılımcılar burada canlı görünür. Firebase doldurulmadıysa yalnızca bu tarayıcıdaki kayıtlar görünür.
+          </p>
+          <div class="table-scroll">
+            <table>
+              <thead>
+                <tr>
+                  <th>#</th><th>Ad</th><th>Yaş</th><th>Hobi</th><th>Mevsim</th>
+                  <th>İdeal Akşam</th><th>Renk</th><th>Aşk</th><th>Tatil</th>
+                  <th>Aradığı</th><th>Mutluluk</th><th>Gelecek</th><th>Tarih</th>
+                </tr>
+              </thead>
+              <tbody id="tbody"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Sekme: Fal Sonucu -->
+        <div class="tab-pane" id="tab-sonuc">
+          <p class="lead" style="text-align:left;margin:4px 0 14px">
+            "Sizi bekleyen kişi" açıklaması koda <b>sabitlenmiştir</b> (değişmez). Buradan yalnızca "Senden istediği" ve kısa notları düzenlersin.
+          </p>
+          <div class="field" style="text-align:left">
+            <label>Sizi bekleyen kişi (sabit)</label>
+            <textarea rows="6" readonly style="background:#f6eef6;color:var(--rose);font-style:italic">Uzun boylu poslu
+Esmer
+Gözlüklü
+Sayısalcı
+Saf</textarea>
+            <p class="micro" style="margin-top:6px">Değiştirmek istersen <code>js/app.js</code> içinde <code>FIXED_PERSON</code> satırını düzenle.</p>
+          </div>
+          <div class="field" style="text-align:left">
+            <label for="resWants">Senden istediği</label>
+            <input id="resWants" type="text" placeholder="örn. Senden bir şey büyük istiyor...">
+          </div>
+          <div class="field" style="text-align:left">
+            <label>Kısa notlar (1-5; boş bıraktığını atlar)</label>
+            <textarea id="resNote1" rows="2" placeholder="1. not"></textarea>
+            <textarea id="resNote2" rows="2" placeholder="2. not"></textarea>
+            <textarea id="resNote3" rows="2" placeholder="3. not"></textarea>
+            <textarea id="resNote4" rows="2" placeholder="4. not"></textarea>
+            <textarea id="resNote5" rows="2" placeholder="5. not"></textarea>
+          </div>
+          <p class="hint" id="resStatus" hidden></p>
+          <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:8px">
+            <button class="btn-primary" id="btnSaveResult" style="margin-top:0;flex:1;min-width:120px">Kaydet</button>
+            <button class="btn-ghost" id="btnResetResult">Varsayılana Dön</button>
+          </div>
+          <button class="btn-primary" id="btnExportResult" style="margin-top:14px">Kalıcı Yap · result.json indir 📥</button>
+          <p class="micro" style="text-align:left;margin-top:10px">
+            GitHub'a yüklemek için: Kaydet → "result.json indir" → dosyayı proje klasörüne koy (varsa üstüne yaz) → hepsini GitHub'a yükle. Böylece yazdığın sonuç herkese kalıcı görünür.
+          </p>
+        </div>
+      </div>
+    </section>
+
+  </main>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+  <script src="js/firebase-config.js"></script>
+  <script src="js/admin.js"></script>
+</body>
+</html>

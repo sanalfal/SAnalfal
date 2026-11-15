@@ -1,0 +1,213 @@
+/* ===== Sanal Fal — Renk & Tipografi ===== */
+:root{
+  --pink:#ff7aa2;
+  --pink-deep:#ff5a8a;
+  --rose:#b76e79;
+  --lav:#a06cd5;
+  --lav-soft:#c8a2c8;
+  --cream:#fff7fb;
+  --ink:#4a3a4a;
+  --muted:#9a8aa0;
+  --card:rgba(255,255,255,.78);
+  --shadow:0 22px 60px -24px rgba(214,108,158,.5);
+}
+
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{
+  font-family:'Quicksand',system-ui,sans-serif;
+  color:var(--ink);
+  background:
+    radial-gradient(1100px 760px at 82% -12%, #fde0ee 0%, transparent 55%),
+    radial-gradient(980px 680px at 8% 112%, #efe1ff 0%, transparent 55%),
+    linear-gradient(160deg,#fff5fb 0%,#fbeaf7 50%,#f3e9ff 100%);
+  background-attachment:fixed;
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:20px;
+  overflow-x:hidden;
+}
+
+/* Arka plan: yumuşak parlayan küreler (bokeh) */
+.bg-layer{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+.bg-orb{
+  position:absolute;bottom:-120px;border-radius:50%;
+  background:radial-gradient(circle at 35% 35%, rgba(255,255,255,.95), rgba(255,160,196,.55) 42%, rgba(176,120,220,.28) 68%, transparent 74%);
+  filter:blur(6px);
+  opacity:0;
+  animation:drift linear infinite;
+}
+@keyframes drift{
+  0%{transform:translate(0,0) scale(.9);opacity:0}
+  12%{opacity:.5}
+  85%{opacity:.4}
+  100%{transform:translate(22px,-115vh) scale(1.18);opacity:0}
+}
+
+.app{position:relative;z-index:1;width:100%;max-width:480px}
+
+/* ===== Kart & Ekranlar ===== */
+.screen{display:none;animation:fade .55s ease}
+.screen.active{display:block}
+@keyframes fade{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+
+.card{
+  background:var(--card);
+  backdrop-filter:blur(18px);
+  -webkit-backdrop-filter:blur(18px);
+  border:1px solid rgba(255,255,255,.7);
+  border-radius:30px;
+  padding:34px 28px;
+  box-shadow:var(--shadow), inset 0 1px 0 rgba(255,255,255,.8);
+  text-align:center;
+}
+.card.center{display:flex;flex-direction:column;align-items:center;gap:14px}
+
+/* ===== Tipografi ===== */
+.title{
+  font-family:'Playfair Display',serif;
+  font-weight:700;
+  font-size:2.4rem;
+  line-height:1.1;
+  background:linear-gradient(95deg,var(--pink-deep),var(--lav));
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+}
+.title.sm{font-size:1.7rem}
+.script-sub{
+  font-family:'Dancing Script',cursive;
+  color:var(--rose);
+  font-size:1.5rem;
+  margin-top:-6px;
+  letter-spacing:.5px;
+}
+.center{text-align:center}
+.lead{color:var(--muted);font-size:1rem;line-height:1.6;margin-top:10px}
+.micro{color:var(--muted);font-size:.75rem;margin-top:16px;opacity:.8}
+.hint{color:var(--pink-deep);font-size:.85rem;margin-top:6px;font-weight:600}
+.brand-emoji{font-size:3rem;margin-bottom:2px;animation:beat 2.2s ease infinite}
+@keyframes beat{0%,100%{transform:scale(1)}10%{transform:scale(1.18)}}
+
+/* ===== Form ===== */
+.field{margin-top:22px;text-align:left}
+.field label{display:block;font-weight:600;font-size:.9rem;margin-bottom:8px;color:var(--rose)}
+.field input{
+  width:100%;padding:14px 18px;border:2px solid #f0d6e4;border-radius:18px;
+  font-family:inherit;font-size:1.05rem;color:var(--ink);background:#fff;outline:none;
+  transition:.2s;
+}
+.field input:focus{border-color:var(--pink);box-shadow:0 0 0 4px rgba(255,122,162,.18)}
+
+/* ===== Butonlar ===== */
+.btn-primary{
+  margin-top:22px;width:100%;
+  padding:15px 22px;border:none;border-radius:18px;cursor:pointer;
+  font-family:inherit;font-weight:700;font-size:1.05rem;color:#fff;
+  background:linear-gradient(95deg,var(--pink-deep),var(--lav));
+  box-shadow:0 12px 26px -10px rgba(255,90,138,.7);
+  transition:transform .18s,box-shadow .18s,filter .18s;
+}
+.btn-primary:hover{transform:translateY(-2px);filter:brightness(1.05);box-shadow:0 18px 32px -12px rgba(255,90,138,.8)}
+.btn-primary:active{transform:translateY(0)}
+.btn-ghost{
+  background:transparent;border:2px solid #f0d6e4;color:var(--rose);
+  padding:12px 20px;border-radius:16px;cursor:pointer;font-family:inherit;font-weight:600;font-size:.95rem;
+  transition:.18s;
+}
+.btn-ghost:hover{background:#fff0f6;border-color:var(--pink)}
+
+/* ===== Sorular ===== */
+.progress-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
+.q-counter{font-weight:700;color:var(--rose);font-size:.9rem}
+.q-skip{font-size:.8rem;color:var(--muted);cursor:pointer;text-decoration:underline}
+.progress{height:9px;background:#f3dde8;border-radius:99px;overflow:hidden}
+.progress.slim{height:7px;width:100%;max-width:300px;margin-top:6px}
+.progress-bar{height:100%;width:0%;border-radius:99px;background:linear-gradient(90deg,var(--pink-deep),var(--lav));transition:width .4s ease}
+
+.q-title{font-family:'Playfair Display',serif;font-size:1.45rem;margin:20px 0 14px;color:var(--ink)}
+.q-options{display:flex;flex-direction:column;gap:10px;text-align:left}
+.q-options button{
+  padding:14px 18px;border:2px solid #f0d6e4;background:#fff;border-radius:18px;cursor:pointer;
+  font-family:inherit;font-size:1rem;color:var(--ink);text-align:left;transition:.18s;
+}
+.q-options button:hover{border-color:var(--pink);background:#fff5fa;transform:translateX(3px)}
+.q-options button.sel{border-color:var(--pink-deep);background:linear-gradient(95deg,#fff0f6,#f6e7ff);color:var(--pink-deep);font-weight:600}
+
+.q-nav{display:flex;justify-content:space-between;margin-top:22px;gap:12px}
+.q-nav .btn-primary,.q-nav .btn-ghost{margin-top:0;width:auto;flex:1}
+
+/* ===== Analiz ===== */
+.orb{
+  width:120px;height:120px;border-radius:50%;margin:6px auto 14px;
+  background:radial-gradient(circle at 35% 30%,#fff,#ffd9e8 40%,#e3c6f5 70%,#c79be8);
+  display:flex;align-items:center;justify-content:center;
+  box-shadow:0 0 0 8px rgba(255,122,162,.12),0 0 40px rgba(160,108,213,.4);
+  animation:spin 3.5s linear infinite,glow 2s ease-in-out infinite alternate;
+}
+.orb-inner{width:46px;height:46px;border-radius:50%;background:radial-gradient(circle,#fff,#ffb7d2);box-shadow:0 0 18px #fff inset;animation:beat 1.6s ease infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes glow{to{box-shadow:0 0 0 14px rgba(255,122,162,.06),0 0 60px rgba(160,108,213,.55)}}
+.percent{font-family:'Playfair Display',serif;font-size:1.2rem;color:var(--rose);font-weight:600}
+
+/* ===== Sizi bekleyen kişi ===== */
+.person-silhouette{font-size:4rem;margin:4px 0}
+.person-text{font-size:1.05rem;line-height:1.7;color:var(--ink);margin:14px 0;text-align:left;background:#fff5fa;padding:16px 18px;border-radius:18px;border:1px solid #f3dde8;white-space:pre-line}
+.person-wants{font-size:.98rem;color:var(--muted);margin-bottom:4px}
+.person-wants .label{color:var(--rose);font-weight:700}
+
+/* ===== Notlar ===== */
+.note-stage{min-height:140px;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:10px;margin:8px 0}
+.note-num{font-family:'Playfair Display',serif;color:var(--rose);font-weight:600}
+.note-text{font-family:'Dancing Script',cursive;font-size:1.85rem;line-height:1.35;color:var(--ink);max-width:320px}
+.note-text.in{animation:noteIn .6s cubic-bezier(.2,.9,.3,1.2)}
+@keyframes noteIn{from{opacity:0;transform:translateY(20px) scale(.94)}to{opacity:1;transform:none}}
+.dots{display:flex;gap:9px;margin:6px 0 4px}
+.dots i{width:9px;height:9px;border-radius:50%;background:#f0d6e4;transition:.25s}
+.dots i.on{background:linear-gradient(95deg,var(--pink-deep),var(--lav));transform:scale(1.25)}
+
+/* ===== Bitiş ===== */
+.confetti{font-size:3rem}
+.end-actions{display:flex;flex-direction:column;gap:10px;width:100%;margin-top:8px}
+.end-actions .btn-primary{margin-top:0}
+
+/* ===== Admin ===== */
+.admin-wrap{max-width:900px}
+table{width:100%;border-collapse:collapse;font-size:.86rem}
+thead th{position:sticky;top:0;background:#fff;color:var(--rose);font-weight:700;text-align:left;padding:12px;border-bottom:2px solid #f0d6e4;white-space:nowrap}
+tbody td{padding:11px 12px;border-bottom:1px solid #f6e7ff;text-align:left;vertical-align:top}
+tbody tr:hover{background:#fff5fa}
+.no-data{text-align:center;padding:40px;color:var(--muted)}
+.admin-top{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;margin-bottom:16px}
+.chip{display:inline-block;background:#f6e7ff;color:var(--lav);font-weight:700;padding:6px 14px;border-radius:99px;font-size:.85rem}
+.table-scroll{overflow:auto;border-radius:18px;background:#fff;border:1px solid #f0d6e4;max-height:65vh}
+input.pw{margin-top:8px}
+.top-bar{position:fixed;top:14px;right:18px;z-index:2}
+.link-soft{color:var(--muted);font-size:.78rem;text-decoration:none}
+.link-soft:hover{color:var(--rose)}
+
+/* Gizli admin köşe linki */
+.admin-link{
+  position:fixed;bottom:12px;right:16px;z-index:6;
+  font-size:1rem;line-height:1;color:var(--rose);opacity:.2;
+  text-decoration:none;cursor:pointer;user-select:none;
+  transition:opacity .2s,transform .2s;
+}
+.admin-link:hover{opacity:.75;transform:scale(1.12)}
+
+/* ===== Admin sekmeleri & textarea ===== */
+.tabs{display:flex;gap:8px;margin:14px 0 4px;border-bottom:2px solid #f0d6e4}
+.tab{background:none;border:none;cursor:pointer;font-family:inherit;font-weight:700;font-size:.95rem;color:var(--muted);padding:10px 18px;border-bottom:3px solid transparent;margin-bottom:-2px;transition:.2s}
+.tab:hover{color:var(--rose)}
+.tab.active{color:var(--pink-deep);border-bottom-color:var(--pink-deep)}
+.tab-pane{display:none;padding-top:10px}
+.tab-pane.active{display:block;animation:fade .35s ease}
+textarea{width:100%;padding:12px 14px;border:2px solid #f0d6e4;border-radius:16px;font-family:inherit;font-size:.95rem;color:var(--ink);background:#fff;outline:none;resize:vertical;margin-top:6px;transition:.2s}
+textarea:focus{border-color:var(--pink);box-shadow:0 0 0 4px rgba(255,122,162,.15)}
+.field textarea+textarea{margin-top:8px}
+
+@media(max-width:560px){
+  .title{font-size:2rem}
+  .card{padding:26px 20px}
+  .note-text{font-size:1.6rem}
+}
