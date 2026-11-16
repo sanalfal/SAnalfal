@@ -8,7 +8,7 @@
   const RESULT_KEY = "sanalfal_result";
 
   /* SABİT "sizi bekleyen kişi" açıklaması — her zaman bu çıkar */
-  const FIXED_PERSON = "Uzun boylu poslu\nEsmer\nGözlüklü\nSayısalcı\nSaf";
+  const FIXED_PERSON = "Uzun boylu poslu\nEsmer\nGözlüklü\nSayısalcı\nBaş harfi M...";
 
   let db = null;
   function initFirebase(){
